@@ -22,10 +22,10 @@ from fuzzywuzzy.process import dedupe
 ### L O A D   T R A N C R I P T S   A N D   D E T E C T   J O U R N A L I S T S ###
 ########################################################################################################################
 # load data.frame with transcripts, Date, and ID (show_id) column
-transcripts = pd.read_csv(r"C:\Users\Marco Liedecke\Desktop\Twitter_Tone\Transcripts\tucker_transcripts.csv", encoding='latin-1')
+transcripts = pd.read_csv(r"", encoding='latin-1')
 
 # load spacy to detect names in transcripts
-nlp = spacy.load(r"C:\Users\Marco Liedecke\anaconda3\envs\python\Lib\site-packages\en_core_web_sm\en_core_web_sm-3.2.0")
+nlp = spacy.load(r"")
 
 # crate empty list for names mentioned by Tucker Carlson and index indicating the specific episode
 names = []
@@ -67,7 +67,7 @@ names_df = pd.DataFrame(names_df, columns=['names'])
 
 # save dataframe with all names Tucker Carlson has mentioned on his show.
 # I will manually code the data.frame in Numbers adding twitter_handle, gender, and media variable
-names_df.to_csv(r"C:\Users\Marco Liedecke\Desktop\Twitter_Tone\Data\journalists\raw_journalist_names.csv",
+names_df.to_csv(r"",
                 encoding='utf-8',
                 index=False)
 
