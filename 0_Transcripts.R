@@ -22,7 +22,7 @@ library(parallel)
 library(stringr)
 
 # load documents
-LNToutput <- lnt_read("C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Transcripts\\1_1417")
+LNToutput <- lnt_read("")
 
 # seperate data.frames in LNToutput
 meta_df <- LNToutput@meta # meta data
@@ -36,7 +36,7 @@ transcripts <- articles_meta_df %>%
   select(ID, Date, Article)
 
 # save data.frame transcripts
-write.csv(transcripts,"C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Transcripts\\tucker_transcripts.csv", row.names = FALSE)  
+write.csv(transcripts,"", row.names = FALSE)  
 
 # convert to Quanteda format
 # tokenize transcripts
@@ -53,7 +53,7 @@ transcript_trigrams <- tokens_ngrams(toks, n = 1:3, concatenator = " ")
 
 # load data.frame with all names detected in transcripts by Spacy
 # the data.frame is messy with 5200 rows most of which were not actual names or names of non-journalists
-names_df <- read_csv("C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Data\\journalists\\journalist_names.csv")
+names_df <- read_csv("")
 
 # drop na rows for trial 5200 rows
 names_df <- names_df %>%
@@ -184,7 +184,7 @@ full_names <- merge(names_df, full_names, by = "names")
 full_names <- full_names[order(full_names$Date),]
 
 # save data.frame date.frame
-write.csv(full_names,"C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Data\\journalists\\full_names.csv", row.names = FALSE)  
+write.csv(full_names,"", row.names = FALSE)  
 
 
 # isolate days for which a journalists have been called out at least 10 times
@@ -252,7 +252,7 @@ full_names_10 <- merge(names_df, full_names_10, by = "names")
 full_names_10 <- full_names_10[order(full_names_10$Date),]
 
 # save data.frame date.frame
-write.csv(full_names_10,"C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Data\\journalists\\full_names_10.csv", row.names = FALSE)  
+write.csv(full_names_10,"", row.names = FALSE)  
 
 
 # isolate days for which a journalists have been called out at least 10 times
@@ -305,7 +305,7 @@ full_names_5_9 <- merge(names_df, full_names_5_9, by = "names")
 full_names_5_9 <- full_names_5_9[order(full_names_5_9$Date),]
 
 # save data.frame date.frame
-write.csv(full_names_5_9,"C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Data\\journalists\\full_names_5_9.csv", row.names = FALSE)  
+write.csv(full_names_5_9,"", row.names = FALSE)  
 
 
 
