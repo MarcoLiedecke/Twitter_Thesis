@@ -52,7 +52,7 @@ showtext_auto()
 ### HYPOTHESIS 1
 # treatment group (hypothesis 1)
 # load csv files for treatment group called out 5 times or more 
-treatment_file_path <- dir_ls("")
+treatment_file_path <- dir_ls("C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Data\\treatment_group\\3500_tweets")
 treatment_file_content <- list()
 
 # loop through file_path and load all csv files for treatment group into list file_content 
@@ -64,7 +64,7 @@ for (i in seq_along(treatment_file_path)) {
 
 # control group (hypthesis 1)
 # load csv files for control group
-control_file_path <- dir_ls("")
+control_file_path <- dir_ls("C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Data\\control_group\\final")
 control_file_content <- list()
 
 # loop through file_path and load all csv files for control group into list file_content 
@@ -158,20 +158,20 @@ control_group <- rowid_to_column(control_group, "text_id")
 
 
 # load treatment_group_scores and control_group_scores
-t1_scores <- read_csv("")
-t2_scores <- read_csv("")
-t3_scores <- read_csv("")
-t4_scores <- read_csv("")
-t5_scores <- read_csv("")
+t1_scores <- read_csv("C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Data\\treatment_group\\t1_scores.csv")
+t2_scores <- read_csv("C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Data\\treatment_group\\t2_scores.csv")
+t3_scores <- read_csv("C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Data\\treatment_group\\t3_scores.csv")
+t4_scores <- read_csv("C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Data\\treatment_group\\t4_scores.csv")
+t5_scores <- read_csv("C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Data\\treatment_group\\t5_scores.csv")
 treatment_group_scores <- do.call("rbind", list(t1_scores, t2_scores, t3_scores, t4_scores, t5_scores)) # row bind all data.frames
 
 # control group
-c1_scores <- read_csv("")
-c2_scores <- read_csv("")
-c3_scores <- read_csv("")
-c4_scores <- read_csv("")
-c5_scores <- read_csv("")
-c6_scores <- read_csv("")
+c1_scores <- read_csv("C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Data\\control_group\\c1_scores.csv")
+c2_scores <- read_csv("C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Data\\control_group\\c2_scores.csv")
+c3_scores <- read_csv("C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Data\\control_group\\c3_scores.csv")
+c4_scores <- read_csv("C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Data\\control_group\\c4_scores.csv")
+c5_scores <- read_csv("C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Data\\control_group\\c5_scores.csv")
+c6_scores <- read_csv("C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Data\\control_group\\c6_scores.csv")
 control_group_scores <- do.call("rbind", list(c1_scores, c2_scores, c3_scores, c4_scores, c5_scores, c6_scores)) # row bind all data.frames
 
 # merge data with Perpsective scores with data on journalsits 
@@ -181,7 +181,7 @@ control <- merge(control_group_scores, control_group, by = "text_id")
 
 # load dataset with details on treatment group
 # variables: names, twitter_handle, media, gender, weekday, ID, treatment_id, showtime, date, start_date, and end_date
-tucker_df <- read_csv("")
+tucker_df <- read_csv("C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Data\\main_df\\treatment_group\\lexisnexis_treatment.csv")
 
 # rename "treatment_id" to "journalist_id", select columns "date_id", "journalist_id", "show_id", "names", "twitter_handle", 
 # "showtime", "gender"
@@ -518,7 +518,7 @@ fig_mean_online_harassment <- ggarrange(fig_mean_TOXICITY, fig_mean_SEVERE_TOXIC
 
 
 # save fig_mean_online_harassment
-ggsave(path = "", 
+ggsave(path = "C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Figure", 
        "fig_mean_online_harassment.pdf", width = 10, height = 6)
 
 
@@ -607,7 +607,7 @@ did_fig <- ggplot(df, aes(x = Time, y = Score, group = journalist,  linetype = j
 
 
 # save bar plot on distribution of tweets
-ggsave(path = "", 
+ggsave(path = "C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Figure", 
        "did_fig.pdf", width = 6, height = 4)
 
 
@@ -617,7 +617,7 @@ ggsave(path = "",
 
 
 # load treatment group for descripitve statistics
-descriptive <- read_csv("")
+descriptive <- read_csv("C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Data\\main_df\\treatment_group\\lexisnexis_treatment.csv")
 
 # create a media count variable
 descriptive <- descriptive %>%
@@ -644,7 +644,7 @@ media_gender_distribution <- ggplot(descriptive, aes(x = fct_infreq(media), fill
         text = element_text(family = "Roboto Mono", size = 15),
         axis.text.x = element_text(angle = 45, vjust = 1.03, hjust = 1, size = 10))
 # save plot with media and gender distribution
-ggsave(path = "", 
+ggsave(path = "C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Figure", 
        "media_gender_distribution.pdf", width = 10, height = 4)
 
 
@@ -687,7 +687,7 @@ distribution_tweets <- ggplot(motherload, aes(x = factor_date, y = TOXICITY, fil
  xlab("Time") + ylab("")
 
 # save bar plot on distribution of tweets
-ggsave(path = "", 
+ggsave(path = "C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Figure", 
        "distribution_tweets.pdf", width = 10, height = 3)
 
 ####################################################################################################################################
@@ -768,7 +768,7 @@ stargazer(event_study_table_1)
 
 # TOXICITY 
 # previous model had day 0 as reference feols(TOXICITY ~ i(time_to_treat, treatment_dummy, ref = 0) etc.
-toxicity_twfe = feols(TOXICITY ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time Ã— treatment status 
+toxicity_twfe = feols(TOXICITY ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time × treatment status 
                  journalist_id + day_count,                           ## unit FE and time FE
                  cluster = ~journalist_id,                            ## cluster at journalist level 
                  data = event_df)
@@ -799,7 +799,7 @@ toxicity_twfe_fig <- ggplot(toxicity_twfe, aes(x=x, y=estimate)) +
 
 
 # SEVERE TOXICITY
-servere_toxicity_twfe = feols(SEVERE_TOXICITY ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time Ã— treatment status 
+servere_toxicity_twfe = feols(SEVERE_TOXICITY ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time × treatment status 
                                               journalist_id + day_count,                           ## unit FE and time FE
                                               cluster = ~journalist_id,                            ## cluster at journalist level 
                                               data = event_df)
@@ -828,7 +828,7 @@ servere_toxicity_twfe_fig <- ggplot(servere_toxicity_twfe, aes(x=x, y=estimate))
 
 
 # SEXUALLY EXPLICIT 
-sexually_explicit_twfe = feols(SEXUALLY_EXPLICIT ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time Ã— treatment status 
+sexually_explicit_twfe = feols(SEXUALLY_EXPLICIT ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time × treatment status 
                                                          journalist_id + day_count,                           ## unit FE and time FE
                                                        cluster = ~journalist_id,                            ## cluster at journalist level 
                                                        data = event_df)
@@ -858,7 +858,7 @@ sexually_explicit_twfe_fig <- ggplot(sexually_explicit_twfe, aes(x=x, y=estimate
 
 
 # IDENTITY ATTACK
-identity_attack_twfe = feols(IDENTITY_ATTACK ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time Ã— treatment status 
+identity_attack_twfe = feols(IDENTITY_ATTACK ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time × treatment status 
                                journalist_id + day_count,                           ## unit FE and time FE
                              cluster = ~journalist_id,                            ## cluster at journalist level 
                              data = event_df)
@@ -888,7 +888,7 @@ identity_attack_twfe_fig <- ggplot(identity_attack_twfe, aes(x=x, y=estimate)) +
 
 
 # INSULT
-insult_twfe = feols(INSULT ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time Ã— treatment status 
+insult_twfe = feols(INSULT ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time × treatment status 
                       journalist_id + day_count,                           ## unit FE and time FE
                     cluster = ~journalist_id,                            ## cluster at journalist level 
                     data = event_df)
@@ -918,7 +918,7 @@ insult_twfe_fig <- ggplot(insult_twfe, aes(x=x, y=estimate)) +
 
 
 # THREAT
-threat_twfe = feols(THREAT ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time Ã— treatment status 
+threat_twfe = feols(THREAT ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time × treatment status 
                       journalist_id + day_count,                           ## unit FE and time FE
                     cluster = ~journalist_id,                            ## cluster at journalist level 
                     data = event_df)
@@ -956,7 +956,7 @@ Event_Study_Fig <- annotate_figure(twfe_fig_combined, top = text_grob("Event stu
                                                     color = "black", face = "bold", family = "Roboto Mono", size = 14))
 
 # save 
-ggsave(path = "", 
+ggsave(path = "C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Figure", 
        "twfe_fig_combined.pdf", width = 10, height = 8)
 ####################################################################################################################################
 ### HYPOTHESIS 1 (GENERALIZED DID)
@@ -1099,12 +1099,12 @@ stargazer(event_study_table_2)
 
 
 # TOXICITY
-left_toxicity_twfe = feols(TOXICITY ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time Ã— treatment status 
+left_toxicity_twfe = feols(TOXICITY ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time × treatment status 
                              journalist_id + day_count,                           ## unit FE and time FE
                            cluster = ~journalist_id,                            ## cluster at journalist level 
                            data = left_df)
 
-right_toxicity_twfe = feols(TOXICITY ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time Ã— treatment status 
+right_toxicity_twfe = feols(TOXICITY ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time × treatment status 
                               journalist_id + day_count,                           ## unit FE and time FE
                             cluster = ~journalist_id,                            ## cluster at journalist level 
                             data = right_df)
@@ -1142,12 +1142,12 @@ media_toxicity_twfe_fig <- ggplot(media_toxicity) +
 
 
 # SEVERE TOXICITY
-left_severe_toxicity_twfe = feols(SEVERE_TOXICITY ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time Ã— treatment status 
+left_severe_toxicity_twfe = feols(SEVERE_TOXICITY ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time × treatment status 
                                     journalist_id + day_count,                           ## unit FE and time FE
                                   cluster = ~journalist_id,                            ## cluster at journalist level 
                                   data = left_df)
 
-right_severe_toxicity_twfe = feols(SEVERE_TOXICITY ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time Ã— treatment status 
+right_severe_toxicity_twfe = feols(SEVERE_TOXICITY ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time × treatment status 
                                      journalist_id + day_count,                           ## unit FE and time FE
                                    cluster = ~journalist_id,                            ## cluster at journalist level 
                                    data = right_df)
@@ -1183,12 +1183,12 @@ media_severe_toxicity_twfe_fig <- ggplot(media_severe_toxicity) +
 
 
 # SEXUALLY EXPLICIT 
-left_sexually_explicit_twfe = feols(SEXUALLY_EXPLICIT ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time Ã— treatment status 
+left_sexually_explicit_twfe = feols(SEXUALLY_EXPLICIT ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time × treatment status 
                                       journalist_id + day_count,                           ## unit FE and time FE
                                     cluster = ~journalist_id,                            ## cluster at journalist level 
                                     data = left_df)
 
-right_sexually_explicit_twfe = feols(SEXUALLY_EXPLICIT ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time Ã— treatment status 
+right_sexually_explicit_twfe = feols(SEXUALLY_EXPLICIT ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time × treatment status 
                                        journalist_id + day_count,                           ## unit FE and time FE
                                      cluster = ~journalist_id,                            ## cluster at journalist level 
                                      data = right_df)
@@ -1225,12 +1225,12 @@ media_sexually_explicit_twfe_fig <- ggplot(media_sexually_explicit) +
 
 
 # IDENTITY ATTACK
-left_identity_attack_twfe = feols(IDENTITY_ATTACK ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time Ã— treatment status 
+left_identity_attack_twfe = feols(IDENTITY_ATTACK ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time × treatment status 
                                     journalist_id + day_count,                           ## unit FE and time FE
                                   cluster = ~journalist_id,                            ## cluster at journalist level 
                                   data = left_df)
 
-right_identity_attack_twfe = feols(IDENTITY_ATTACK ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time Ã— treatment status 
+right_identity_attack_twfe = feols(IDENTITY_ATTACK ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time × treatment status 
                                      journalist_id + day_count,                           ## unit FE and time FE
                                    cluster = ~journalist_id,                            ## cluster at journalist level 
                                    data = right_df)
@@ -1266,12 +1266,12 @@ media_identity_attack_twfe_fig <- ggplot(media_identity_attack) +
 
 
 # INSULT
-left_insult_twfe = feols(INSULT ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time Ã— treatment status 
+left_insult_twfe = feols(INSULT ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time × treatment status 
                            journalist_id + day_count,                           ## unit FE and time FE
                          cluster = ~journalist_id,                            ## cluster at journalist level 
                          data = left_df)
 
-right_insult_twfe = feols(INSULT ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time Ã— treatment status 
+right_insult_twfe = feols(INSULT ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time × treatment status 
                             journalist_id + day_count,                           ## unit FE and time FE
                           cluster = ~journalist_id,                            ## cluster at journalist level 
                           data = right_df)
@@ -1307,12 +1307,12 @@ media_insult_twfe_fig <- ggplot(media_insult) +
 
 
 # THREAT
-left_threat_twfe = feols(THREAT ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time Ã— treatment status 
+left_threat_twfe = feols(THREAT ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time × treatment status 
                            journalist_id + day_count,                           ## unit FE and time FE
                          cluster = ~journalist_id,                            ## cluster at journalist level 
                          data = left_df)
 
-right_threat_twfe = feols(THREAT ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time Ã— treatment status 
+right_threat_twfe = feols(THREAT ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time × treatment status 
                             journalist_id + day_count,                           ## unit FE and time FE
                           cluster = ~journalist_id,                            ## cluster at journalist level 
                           data = right_df)
@@ -1354,17 +1354,17 @@ media_fig_combined_left <- ggarrange(media_toxicity_twfe_fig, media_severe_toxic
                                      common.legend = TRUE, legend = "bottom", font.label = list(size = 20))
 
 # save 
-ggsave(path = "", 
+ggsave(path = "C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Figure", 
        "media_fig_combined_left.pdf", width = 10, height = 8)
 
 
 # TOXICITY
-left_toxicity_twfe = feols(TOXICITY ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time Ã— treatment status 
+left_toxicity_twfe = feols(TOXICITY ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time × treatment status 
                              journalist_id + day_count,                           ## unit FE and time FE
                            cluster = ~journalist_id,                            ## cluster at journalist level 
                            data = left_df)
 
-right_toxicity_twfe = feols(TOXICITY ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time Ã— treatment status 
+right_toxicity_twfe = feols(TOXICITY ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time × treatment status 
                               journalist_id + day_count,                           ## unit FE and time FE
                             cluster = ~journalist_id,                            ## cluster at journalist level 
                             data = right_df)
@@ -1404,7 +1404,7 @@ media_toxicity_twfe_fig <- ggplot(media_toxicity) +
 ###########################################################################
 
 # TOXICITY
-nr_toxicity_twfe = feols(TOXICITY ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time Ã— treatment status 
+nr_toxicity_twfe = feols(TOXICITY ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time × treatment status 
                                   journalist_id + day_count,                           ## unit FE and time FE
                                 cluster = ~journalist_id,                            ## cluster at journalist level 
                                 data = not_rated_df)
@@ -1436,7 +1436,7 @@ nr_toxicity_twfe_fig <- ggplot(nr_toxicity_twfe) +
 
 
 # SEVERE TOXICITY
-nr_severe_toxicity_twfe = feols(SEVERE_TOXICITY ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time Ã— treatment status 
+nr_severe_toxicity_twfe = feols(SEVERE_TOXICITY ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time × treatment status 
                                     journalist_id + day_count,                           ## unit FE and time FE
                                   cluster = ~journalist_id,                            ## cluster at journalist level 
                                   data = not_rated_df)
@@ -1467,7 +1467,7 @@ nr_severe_toxicity_twfe_fig <- ggplot(nr_severe_toxicity_twfe) +
         legend.key = element_rect(fill = NA, colour = "white", size = 0.25))
 
 # SEXUALLY EXPLICIT 
-nr_sexually_explicit_twfe = feols(SEXUALLY_EXPLICIT ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time Ã— treatment status 
+nr_sexually_explicit_twfe = feols(SEXUALLY_EXPLICIT ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time × treatment status 
                                   journalist_id + day_count,                           ## unit FE and time FE
                                 cluster = ~journalist_id,                            ## cluster at journalist level 
                                 data = not_rated_df)
@@ -1500,7 +1500,7 @@ nr_sexually_explicit_twfe_fig <- ggplot(nr_sexually_explicit_twfe) +
 
 
 # IDENTITY ATTACK
-nr_identity_attack_twfe = feols(IDENTITY_ATTACK ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time Ã— treatment status 
+nr_identity_attack_twfe = feols(IDENTITY_ATTACK ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time × treatment status 
                                     journalist_id + day_count,                           ## unit FE and time FE
                                   cluster = ~journalist_id,                            ## cluster at journalist level 
                                   data = not_rated_df)
@@ -1532,7 +1532,7 @@ nr_identity_attack_twfe_fig <- ggplot(nr_identity_attack_twfe) +
 
 
 # INSULT
-nr_insult_twfe = feols(INSULT ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time Ã— treatment status 
+nr_insult_twfe = feols(INSULT ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time × treatment status 
                                   journalist_id + day_count,                           ## unit FE and time FE
                                 cluster = ~journalist_id,                            ## cluster at journalist level 
                                 data = not_rated_df)
@@ -1564,7 +1564,7 @@ nr_insult_twfe_fig <- ggplot(nr_insult_twfe) +
 
 
 # THREAT
-nr_threat_twfe = feols(THREAT ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time Ã— treatment status 
+nr_threat_twfe = feols(THREAT ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time × treatment status 
                          journalist_id + day_count,                           ## unit FE and time FE
                        cluster = ~journalist_id,                            ## cluster at journalist level 
                        data = not_rated_df)
@@ -1602,7 +1602,7 @@ nr_fig_combined_left <- ggarrange(nr_toxicity_twfe_fig, nr_severe_toxicity_twfe_
                                      common.legend = TRUE, legend = "bottom", font.label = list(size = 20))
 
 # save 
-ggsave(path = "", 
+ggsave(path = "C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Figure", 
        "nr_fig_combined_left.pdf", width = 10, height = 8)
 
 
@@ -1768,12 +1768,12 @@ stargazer(event_study_table_3)
 
 
 # TOXICITY
-female_toxicity_twfe = feols(TOXICITY ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time Ã— treatment status 
+female_toxicity_twfe = feols(TOXICITY ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time × treatment status 
                              journalist_id + day_count,                           ## unit FE and time FE
                            cluster = ~journalist_id,                            ## cluster at journalist level 
                            data = female_df)
 
-male_toxicity_twfe = feols(TOXICITY ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time Ã— treatment status 
+male_toxicity_twfe = feols(TOXICITY ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time × treatment status 
                            journalist_id + day_count,                           ## unit FE and time FE
                          cluster = ~journalist_id,                            ## cluster at journalist level 
                          data = male_df)
@@ -1810,12 +1810,12 @@ gender_toxicity_twfe_fig <- ggplot(gender_toxicity) +
 
 
 # SEVERE TOXICITY
-female_severe_toxicity_twfe = feols(SEVERE_TOXICITY ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time Ã— treatment status 
+female_severe_toxicity_twfe = feols(SEVERE_TOXICITY ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time × treatment status 
                       journalist_id + day_count,                           ## unit FE and time FE
                     cluster = ~journalist_id,                            ## cluster at journalist level 
                     data = female_df)
 
-male_severe_toxicity_twfe = feols(SEVERE_TOXICITY ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time Ã— treatment status 
+male_severe_toxicity_twfe = feols(SEVERE_TOXICITY ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time × treatment status 
                     journalist_id + day_count,                           ## unit FE and time FE
                   cluster = ~journalist_id,                            ## cluster at journalist level 
                   data = male_df)
@@ -1851,12 +1851,12 @@ gender_severe_toxicity_twfe_fig <- ggplot(gender_severe_toxicity) +
 
 
 # SEXUALLY EXPLICIT 
-female_sexually_explicit_twfe = feols(SEXUALLY_EXPLICIT ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time Ã— treatment status 
+female_sexually_explicit_twfe = feols(SEXUALLY_EXPLICIT ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time × treatment status 
                                       journalist_id + day_count,                           ## unit FE and time FE
                                     cluster = ~journalist_id,                            ## cluster at journalist level 
                                     data = female_df)
 
-male_sexually_explicit_twfe = feols(SEXUALLY_EXPLICIT ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time Ã— treatment status 
+male_sexually_explicit_twfe = feols(SEXUALLY_EXPLICIT ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time × treatment status 
                                     journalist_id + day_count,                           ## unit FE and time FE
                                   cluster = ~journalist_id,                            ## cluster at journalist level 
                                   data = male_df)
@@ -1893,12 +1893,12 @@ gender_sexually_explicit_twfe_fig <- ggplot(gender_sexually_explicit) +
 
 
 # IDENTITY ATTACK
-female_identity_attack_twfe = feols(IDENTITY_ATTACK ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time Ã— treatment status 
+female_identity_attack_twfe = feols(IDENTITY_ATTACK ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time × treatment status 
                                         journalist_id + day_count,                           ## unit FE and time FE
                                       cluster = ~journalist_id,                            ## cluster at journalist level 
                                       data = female_df)
 
-male_identity_attack_twfe = feols(IDENTITY_ATTACK ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time Ã— treatment status 
+male_identity_attack_twfe = feols(IDENTITY_ATTACK ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time × treatment status 
                                       journalist_id + day_count,                           ## unit FE and time FE
                                     cluster = ~journalist_id,                            ## cluster at journalist level 
                                     data = male_df)
@@ -1935,12 +1935,12 @@ gender_identity_attack_twfe_fig <- ggplot(gender_identity_attack) +
 
 
 # INSULT
-female_insult_twfe = feols(INSULT ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time Ã— treatment status 
+female_insult_twfe = feols(INSULT ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time × treatment status 
                                       journalist_id + day_count,                           ## unit FE and time FE
                                     cluster = ~journalist_id,                            ## cluster at journalist level 
                                     data = female_df)
 
-male_insult_twfe = feols(INSULT ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time Ã— treatment status 
+male_insult_twfe = feols(INSULT ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time × treatment status 
                                     journalist_id + day_count,                           ## unit FE and time FE
                                   cluster = ~journalist_id,                            ## cluster at journalist level 
                                   data = male_df)
@@ -1977,12 +1977,12 @@ gender_insult_twfe_fig <- ggplot(gender_insult) +
 
 
 # THREAT
-female_threat_twfe = feols(THREAT ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time Ã— treatment status 
+female_threat_twfe = feols(THREAT ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time × treatment status 
                              journalist_id + day_count,                           ## unit FE and time FE
                            cluster = ~journalist_id,                            ## cluster at journalist level 
                            data = female_df)
 
-male_threat_twfe = feols(THREAT ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time Ã— treatment status 
+male_threat_twfe = feols(THREAT ~ i(time_to_treat, treatment_group, ref = -1) |  ## key interaction: time × treatment status 
                            journalist_id + day_count,                           ## unit FE and time FE
                          cluster = ~journalist_id,                            ## cluster at journalist level 
                          data = male_df)
@@ -2025,7 +2025,7 @@ gender_twfe_fig_combined <- ggarrange(gender_toxicity_twfe_fig, gender_severe_to
                                     common.legend = TRUE, legend = "bottom", font.label = list(size = 20))
 
 # save 
-ggsave(path = "", 
+ggsave(path = "C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Figure", 
        "gender_twfe_fig_combined.pdf", width = 10, height = 8)
 
 ####################################################################################################################################
@@ -2410,7 +2410,7 @@ tct_fig_distribution_by_atrribute <- ggarrange(tct_TOXICITY, tct_SEVERE, tct_IDE
 
 
 # save 
-ggsave(path = "", 
+ggsave(path = "C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Figure", 
        "tct_fig_distribution_by_atrribute.pdf", width = 8, height = 10)
 
 ####################################################################################################################################
@@ -2665,7 +2665,7 @@ fig_distribution_by_atrribute <- ggarrange(dis_TOXICITY, dis_SEVERE, dis_SEXUALL
                                      common.legend = TRUE, legend = "bottom", font.label = list(size = 20))
 
 # save 
-ggsave(path = "", 
+ggsave(path = "C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Figure", 
        "fig_distribution_by_atrribute.pdf", width = 10, height = 9)
 
 ####################################################################################################################################
@@ -2883,7 +2883,7 @@ fig_distribution_by_atrribute <- ggarrange(media_dis_TOXICITY, media_dis_SEVERE,
                                            common.legend = TRUE, legend = "bottom", font.label = list(size = 20))
 
 # save 
-ggsave(path = "", 
+ggsave(path = "C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Figure", 
        "fig_distribution_by_atrribute.pdf", width = 10, height = 10)
 
 
@@ -2899,7 +2899,7 @@ ggsave(path = "",
 ### HYPOTHESIS 2
 # treatment group (hypothesis 2)
 # load csv files for treatment group called out 10 times or more 
-treatment_file_path_10 <- dir_ls("")
+treatment_file_path_10 <- dir_ls("C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Data\\treatment_group\\final_10")
 treatment_file_content_10 <- list()
 
 # loop through file_path and load all csv files for with intense treatment group into list file_content 
@@ -2911,7 +2911,7 @@ for (i in seq_along(treatment_file_path_10)) {
 
 # control group (hypothesis 2)
 # load csv files for control group
-control_file_path_10 <- dir_ls("")
+control_file_path_10 <- dir_ls("C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Data\\control_group\\final_10")
 control_file_content_10 <- list()
 
 # loop through file_path and load all csv files for control group into list file_content 
@@ -2986,16 +2986,16 @@ control_group_10 <- rowid_to_column(control_group_10, "text_id")
 
 
 # load treatment_group_scores and control_group_scores
-t1_10_scores <- read_csv("")
-t2_10_scores <- read_csv("")
+t1_10_scores <- read_csv("C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Data\\treatment_group\\t1_scores.csv")
+t2_10_scores <- read_csv("C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Data\\treatment_group\\t2_scores.csv")
 treatment_group_scores_10 <- do.call("rbind", list(t1_10_scores, t2_10_scores)) # row bind all data.frames
 
 # control group
-c1_10_scores <- read_csv("")
-c2_10_scores <- read_csv("")
-c3_10_scores <- read_csv("")
-c4_10_scores <- read_csv("")
-c5_10_scores <- read_csv("")
+c1_10_scores <- read_csv("C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Data\\control_group\\c1_10_scores.csv")
+c2_10_scores <- read_csv("C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Data\\control_group\\c2_10_scores.csv")
+c3_10_scores <- read_csv("C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Data\\control_group\\c3_10_scores.csv")
+c4_10_scores <- read_csv("C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Data\\control_group\\c4_10_scores.csv")
+c5_10_scores <- read_csv("C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Data\\control_group\\c5_10_scores.csv")
 control_group_scores_10 <- do.call("rbind", list(c1_10_scores, c2_10_scores, c3_10_scores, c4_10_scores, c5_10_scores)) # row bind all data.frames
 
 # merge data with Perpsective scores with data on journalsits 
@@ -3004,7 +3004,7 @@ control_10 <- merge(control_group_scores_10, control_group_10, by = "text_id")
 
 # load dataset with details on treatment group
 # variables: names, twitter_handle, media, gender, weekday, ID, treatment_id, showtime, date, start_date, and end_date
-tucker_df_10 <- read_csv("")
+tucker_df_10 <- read_csv("C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Data\\main_df\\treatment_group\\lexisnexis_treatment_10.csv")
 
 # rename "id" to "journalist_id", select columns "date_id", "journalist_id", "show_id", "names", "twitter_handle", 
 # "showtime", "gender", and slice the data by names so only the first treatment per journalist is selected

@@ -22,10 +22,10 @@ from fuzzywuzzy.process import dedupe
 ### L O A D   T R A N C R I P T S   A N D   D E T E C T   J O U R N A L I S T S ###
 ########################################################################################################################
 # load data.frame with transcripts, Date, and ID (show_id) column
-transcripts = pd.read_csv(r"", encoding='latin-1')
+transcripts = pd.read_csv(r"C:\Users\Marco Liedecke\Desktop\Twitter_Tone\Transcripts\tucker_transcripts.csv", encoding='latin-1')
 
 # load spacy to detect names in transcripts
-nlp = spacy.load(r"")
+nlp = spacy.load(r"C:\Users\Marco Liedecke\anaconda3\envs\python\Lib\site-packages\en_core_web_sm\en_core_web_sm-3.2.0")
 
 # crate empty list for names mentioned by Tucker Carlson and index indicating the specific episode
 names = []
@@ -67,7 +67,7 @@ names_df = pd.DataFrame(names_df, columns=['names'])
 
 # save dataframe with all names Tucker Carlson has mentioned on his show.
 # I will manually code the data.frame in Numbers adding twitter_handle, gender, and media variable
-names_df.to_csv(r"",
+names_df.to_csv(r"C:\Users\Marco Liedecke\Desktop\Twitter_Tone\Data\journalists\raw_journalist_names.csv",
                 encoding='utf-8',
                 index=False)
 
@@ -80,7 +80,7 @@ names_df.to_csv(r"",
 
 # twitter token
 os.environ[
-    'TOKEN'] = ''
+    'TOKEN'] = 'AAAAAAAAAAAAAAAAAAAAAGJhWQEAAAAADQ%2FsYYeFiu%2FxwFZu5KkitGwJOPY%3D0U33tTGAyLNNfEtawDOiPYzHACej4IGndYk0niWMrF6in8hpSA'
 
 
 def auth():
@@ -162,7 +162,7 @@ def append_to_csv(json_response, fileName):
 # import time intervals for treated journalists and add "T00:00:01.000Z" so it fits Twitters ISO 8601/RFC 3339 time
 # format. By adding "T00:00:01.000Z" to the existing date I set the start of tweets extraction the second a new day
 # starts
-start_time_treat = pd.read_csv(r"")
+start_time_treat = pd.read_csv(r"C:\Users\Marco Liedecke\Desktop\Twitter_Tone\Data\main_df\single_time_int_treat.csv")
 for column in start_time_treat:
     start_time_treat[column] = [date + "T00:00:01.000Z" for date in
                                 start_time_treat[column]]  # correct time so it fits twitters format
@@ -171,7 +171,7 @@ start_time_treat = start_time_treat.T.values.tolist()  # create a nested list of
 # import time intervals for treated journalists and add "T23:59:59.000Z" so it fits Twitters ISO 8601/RFC 3339 time
 # format. By adding "T23:59:59.000Z" to the existing date I set the end of tweets extraction a second before a
 # new day starts
-end_time_treat = pd.read_csv(r"")
+end_time_treat = pd.read_csv(r"C:\Users\Marco Liedecke\Desktop\Twitter_Tone\Data\main_df\single_time_int_treat.csv")
 for column in end_time_treat:
     end_time_treat[column] = [date + "T23:59:59.000Z" for date in
                               end_time_treat[column]]  # correct time so it fits twitters format
@@ -180,7 +180,7 @@ end_time_treat = end_time_treat.T.values.tolist()  # create a nested list of all
 # load lexisnexis treatment: data have been processed in Numbers by adding twitter handles for all 137 journalists
 # that have been called out by Tucker more than 5 times within an episode.
 single_treatment = pd.read_csv(
-    r"",
+    r"C:\Users\Marco Liedecke\Desktop\Twitter_Tone\Data\main_df\treatment_group\lexisnexis_treatment.csv",
     encoding='unicode_escape')
 
 ids = single_treatment["treatment_id"]  # id unique to journalist
@@ -363,7 +363,7 @@ print("Total number of results: ", total_tweets)
 # in the order that they receive treatment. Therefore, the second treated journalist (1) will act as control for the
 # shortest time and the last treated journalist(137) will act as control for the longest time
 start_time_control = pd.read_csv(
-    r"",
+    r"C:\Users\Marco Liedecke\Desktop\Twitter_Tone\Data\\main_df\control_group\control_group_df.csv",
     encoding='unicode_escape')
 start_time_control_ = start_time_control.apply(lambda x: pd.Series(x.dropna().values))
 start_time_control = start_time_control.fillna('')
@@ -377,13 +377,13 @@ for column in start_time_control:
 
 # save data.frame with start time for control group
 start_time_control.to_csv(
-    r"",
+    r"C:\Users\Marco Liedecke\Desktop\Twitter_Tone\Data\main_df\control_group\RAW_start_time_control.csv",
     encoding='utf-8',
     index=False)
 
 # load data.frame with start time for control group (manually removed "T00:00:01.000Z" in Numbers)
 start_time_control = pd.read_csv(
-    r"",
+    r"C:\Users\Marco Liedecke\Desktop\Twitter_Tone\Data\main_df\control_group\start_time_control.csv",
     encoding='unicode_escape')
 start_time_control_ = start_time_control.apply(lambda x: pd.Series(x.dropna().values))
 start_time_control = start_time_control.fillna('0')
@@ -393,7 +393,7 @@ start_time_control = [[i for i in nested if i != '0'] for nested in start_time_c
 # I do the same to end time as has been done to start time
 # import time intervals and add "T23:59:59.000Z" so it fits Twitters ISO 8601/RFC 3339 time format.
 end_time_control = pd.read_csv(
-    r"",
+    r"C:\Users\Marco Liedecke\Desktop\Twitter_Tone\Data\\main_df\control_group\control_group_df.csv",
     encoding='unicode_escape')
 end_time_control = end_time_control.apply(lambda x: pd.Series(x.dropna().values))
 end_time_control = end_time_control.fillna('')
@@ -406,13 +406,13 @@ for column in end_time_control:
 
 # save data.frame with end time for control group
 end_time_control.to_csv(
-    r"",
+    r"C:\Users\Marco Liedecke\Desktop\Twitter_Tone\Data\main_df\control_group\RAW_end_time_control.csv",
     encoding='utf-8',
     index=False)
 
 # load data.frame with end time for control group (manually removed "T23:59:59.000Z" in Numbers)
 end_time_control = pd.read_csv(
-    r"",
+    r"C:\Users\Marco Liedecke\Desktop\Twitter_Tone\Data\main_df\control_group\end_time_control.csv",
     encoding='unicode_escape')
 end_time_control = end_time_control.apply(lambda x: pd.Series(x.dropna().values))
 end_time_control = end_time_control.fillna('0')
@@ -422,7 +422,7 @@ end_time_control = [[i for i in nested if i != '0'] for nested in end_time_contr
 # search queries for control group
 # load data.frame with all names and twitter handles etc.
 single_control = pd.read_csv(
-    r"",
+    r"C:\Users\Marco Liedecke\Desktop\Twitter_Tone\Data\main_df\treatment_group\lexisnexis_treatment.csv",
     encoding="unicode_escape")
 control_names = single_control["names"]
 control_handles = single_control["twitter_handle"]
@@ -612,7 +612,7 @@ print("Total number of results: ", total_tweets)
 # format. By adding "T00:00:01.000Z" to the existing date I set the start of tweets extraction the second a new day
 # starts
 start_time_treat_10 = pd.read_csv(
-    r"")
+    r"C:\Users\Marco Liedecke\Desktop\Twitter_Tone\Data\main_df\single_time_int_treat_10.csv")
 for column in start_time_treat_10:
     start_time_treat_10[column] = [date + "T00:00:01.000Z" for date in
                                    start_time_treat_10[column]]  # correct time so it fits twitters format
@@ -622,7 +622,7 @@ start_time_treat_10 = start_time_treat_10.T.values.tolist()  # create a nested l
 # format. By adding "T23:59:59.000Z" to the existing date I set the end of tweets extraction a second before a
 # new day starts
 end_time_treat_10 = pd.read_csv(
-    r"")
+    r"C:\Users\Marco Liedecke\Desktop\Twitter_Tone\Data\main_df\single_time_int_treat_10.csv")
 for column in end_time_treat_10:
     end_time_treat_10[column] = [date + "T23:59:59.000Z" for date in
                                  end_time_treat_10[column]]  # correct time so it fits twitters format
@@ -631,7 +631,7 @@ end_time_treat_10 = end_time_treat_10.T.values.tolist()  # create a nested list 
 # load lexisnexis treatment: data have been processed in Numbers by adding twitter handles for all 137 journalists
 # that have been called out by Tucker more than 5 times within an episode.
 single_treatment_10 = pd.read_csv(
-    r"",
+    r"C:\Users\Marco Liedecke\Desktop\Twitter_Tone\Data\main_df\treatment_group\lexisnexis_treatment_10.csv",
     encoding='unicode_escape')
 
 ids_10 = single_treatment_10["treatment_id"]  # id unique to journalist
@@ -722,7 +722,7 @@ print("Total number of results: ", total_tweets)
 # in the order that they receive treatment. Therefore, the second treated journalist (1) will act as control for the
 # shortest time and the last treated journalist(137) will act as control for the longest time
 start_time_control_10 = pd.read_csv(
-    r"",
+    r"C:\Users\Marco Liedecke\Desktop\Twitter_Tone\Data\\main_df\control_group\control_group_df_10.csv",
     encoding='unicode_escape')
 start_time_control_10 = start_time_control_10.apply(lambda x: pd.Series(x.dropna().values))
 start_time_control_10 = start_time_control_10.fillna('')
@@ -736,13 +736,13 @@ for column in start_time_control_10:
 
 # save data.frame with start time for control group
 start_time_control_10.to_csv(
-    r"",
+    r"C:\Users\Marco Liedecke\Desktop\Twitter_Tone\Data\main_df\control_group\RAW_start_time_control_10.csv",
     encoding='utf-8',
     index=False)
 
 # load data.frame with start time for control group (manually removed "T00:00:00.000Z" in Numbers)
 start_time_control_10 = pd.read_csv(
-    r"",
+    r"C:\Users\Marco Liedecke\Desktop\Twitter_Tone\Data\main_df\control_group\start_time_control_10.csv",
     encoding='unicode_escape')
 start_time_control_10 = start_time_control_10.apply(lambda x: pd.Series(x.dropna().values))
 start_time_control_10 = start_time_control_10.fillna('0')
@@ -752,7 +752,7 @@ start_time_control_10 = [[i for i in nested if i != '0'] for nested in start_tim
 # I do the same to end time as has been done to start time
 # import time intervals and add "T23:59:59.000Z" so it fits Twitters ISO 8601/RFC 3339 time format.
 end_time_control_10 = pd.read_csv(
-    r"",
+    r"C:\Users\Marco Liedecke\Desktop\Twitter_Tone\Data\\main_df\control_group\control_group_df_10.csv",
     encoding='unicode_escape')
 end_time_control_10 = end_time_control_10.apply(lambda x: pd.Series(x.dropna().values))
 end_time_control_10 = end_time_control_10.fillna('')
@@ -765,13 +765,13 @@ for column in end_time_control_10:
 
 # save data.frame with end time for control group
 end_time_control_10.to_csv(
-    r"",
+    r"C:\Users\Marco Liedecke\Desktop\Twitter_Tone\Data\main_df\control_group\RAW_end_time_control_10.csv",
     encoding='utf-8',
     index=False)
 
 # load data.frame with end time for control group (manually removed "T23:59:59.000Z" in Numbers)
 end_time_control_10 = pd.read_csv(
-    r"",
+    r"C:\Users\Marco Liedecke\Desktop\Twitter_Tone\Data\main_df\control_group\end_time_control_10.csv",
     encoding='unicode_escape')
 end_time_control_10 = end_time_control_10.apply(lambda x: pd.Series(x.dropna().values))
 end_time_control_10 = end_time_control_10.fillna('0')
@@ -781,7 +781,7 @@ end_time_control_10 = [[i for i in nested if i != '0'] for nested in end_time_co
 # search queries for control group
 # load data.frame with all names and twitter handles etc.
 single_control_10 = pd.read_csv(
-    r"",
+    r"C:\Users\Marco Liedecke\Desktop\Twitter_Tone\Data\main_df\treatment_group\lexisnexis_treatment_10.csv",
     encoding="unicode_escape")
 control_names_10 = single_control_10["names"]
 control_handles_10 = single_control_10["twitter_handle"]
@@ -886,7 +886,7 @@ print("Total number of results: ", total_tweets)
 # format. By adding "T00:00:01.000Z" to the existing date I set the start of tweets extraction the second a new day
 # starts
 start_time_treat_10 = pd.read_csv(
-    r"")
+    r"C:\Users\Marco Liedecke\Desktop\Twitter_Tone\Data\main_df\single_time_int_treat_10.csv")
 for column in start_time_treat_10:
     start_time_treat_10[column] = [date + "T00:00:01.000Z" for date in
                                    start_time_treat_10[column]]  # correct time so it fits twitters format
@@ -896,7 +896,7 @@ start_time_treat_10 = start_time_treat_10.T.values.tolist()  # create a nested l
 # format. By adding "T23:59:59.000Z" to the existing date I set the end of tweets extraction a second before a
 # new day starts
 end_time_treat_10 = pd.read_csv(
-    r"")
+    r"C:\Users\Marco Liedecke\Desktop\Twitter_Tone\Data\main_df\single_time_int_treat_10.csv")
 for column in end_time_treat_10:
     end_time_treat_10[column] = [date + "T23:59:59.000Z" for date in
                                  end_time_treat_10[column]]  # correct time so it fits twitters format
@@ -905,7 +905,7 @@ end_time_treat_10 = end_time_treat_10.T.values.tolist()  # create a nested list 
 # load lexisnexis treatment: data have been processed in Numbers by adding twitter handles for all 137 journalists
 # that have been called out by Tucker more than 5 times within an episode.
 single_treatment_10 = pd.read_csv(
-    r"",
+    r"C:\Users\Marco Liedecke\Desktop\Twitter_Tone\Data\main_df\treatment_group\lexisnexis_treatment_10.csv",
     encoding='unicode_escape')
 
 ids_10 = single_treatment_10["treatment_id"]  # id unique to journalist
@@ -996,7 +996,7 @@ print("Total number of results: ", total_tweets)
 # in the order that they receive treatment. Therefore, the second treated journalist (1) will act as control for the
 # shortest time and the last treated journalist(137) will act as control for the longest time
 start_time_control_10 = pd.read_csv(
-    r"",
+    r"C:\Users\Marco Liedecke\Desktop\Twitter_Tone\Data\\main_df\control_group\control_group_df_10.csv",
     encoding='unicode_escape')
 start_time_control_10 = start_time_control_10.apply(lambda x: pd.Series(x.dropna().values))
 start_time_control_10 = start_time_control_10.fillna('')
@@ -1010,13 +1010,13 @@ for column in start_time_control_10:
 
 # save data.frame with start time for control group
 start_time_control_10.to_csv(
-    r"",
+    r"C:\Users\Marco Liedecke\Desktop\Twitter_Tone\Data\main_df\control_group\RAW_start_time_control_10.csv",
     encoding='utf-8',
     index=False)
 
 # load data.frame with start time for control group (manually removed "T00:00:00.000Z" in Numbers)
 start_time_control_10 = pd.read_csv(
-    r"",
+    r"C:\Users\Marco Liedecke\Desktop\Twitter_Tone\Data\main_df\control_group\start_time_control_10.csv",
     encoding='unicode_escape')
 start_time_control_10 = start_time_control_10.apply(lambda x: pd.Series(x.dropna().values))
 start_time_control_10 = start_time_control_10.fillna('0')
@@ -1026,7 +1026,7 @@ start_time_control_10 = [[i for i in nested if i != '0'] for nested in start_tim
 # I do the same to end time as has been done to start time
 # import time intervals and add "T23:59:59.000Z" so it fits Twitters ISO 8601/RFC 3339 time format.
 end_time_control_10 = pd.read_csv(
-    r"",
+    r"C:\Users\Marco Liedecke\Desktop\Twitter_Tone\Data\\main_df\control_group\control_group_df_10.csv",
     encoding='unicode_escape')
 end_time_control_10 = end_time_control_10.apply(lambda x: pd.Series(x.dropna().values))
 end_time_control_10 = end_time_control_10.fillna('')
@@ -1039,13 +1039,13 @@ for column in end_time_control_10:
 
 # save data.frame with end time for control group
 end_time_control_10.to_csv(
-    r"",
+    r"C:\Users\Marco Liedecke\Desktop\Twitter_Tone\Data\main_df\control_group\RAW_end_time_control_10.csv",
     encoding='utf-8',
     index=False)
 
 # load data.frame with end time for control group (manually removed "T23:59:59.000Z" in Numbers)
 end_time_control_10 = pd.read_csv(
-    r"",
+    r"C:\Users\Marco Liedecke\Desktop\Twitter_Tone\Data\main_df\control_group\end_time_control_10.csv",
     encoding='unicode_escape')
 end_time_control_10 = end_time_control_10.apply(lambda x: pd.Series(x.dropna().values))
 end_time_control_10 = end_time_control_10.fillna('0')
@@ -1055,7 +1055,7 @@ end_time_control_10 = [[i for i in nested if i != '0'] for nested in end_time_co
 # search queries for control group
 # load data.frame with all names and twitter handles etc.
 single_control_10 = pd.read_csv(
-    r"",
+    r"C:\Users\Marco Liedecke\Desktop\Twitter_Tone\Data\main_df\treatment_group\lexisnexis_treatment_10.csv",
     encoding="unicode_escape")
 control_names_10 = single_control_10["names"]
 control_handles_10 = single_control_10["twitter_handle"]

@@ -27,7 +27,7 @@ library(parallel)
 # description: "URL" contains URL to transcript, "Dato" is the date of the show, "Tekst" is the transcript, "names" is the full
 # "names" of the journalist called out by Tucker Carlson, "twitter_handle", "gender", "show" is a id of the specific show, and
 # "id" is row specific
-tucker_df <- read_csv("")
+tucker_df <- read_csv("C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Data\\journalists\\full_names.csv")
 
 # remove any duplicate twitter_handles (Max Boot)
 tucker_df <- distinct(tucker_df, twitter_handle, .keep_all = TRUE)
@@ -73,12 +73,12 @@ single_time_int_treat <- as.data.frame(mapply(itemizeDates, single_start_date_tr
 
 # save dataset with time_inteval for the Twitter API
 #write.csv(multiple_time_int_treat,"C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Data\\main_df\\multiple_time_int_treat.csv", row.names = FALSE)
-write.csv(single_time_int_treat,"", row.names = FALSE)
+write.csv(single_time_int_treat,"C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Data\\main_df\\single_time_int_treat.csv", row.names = FALSE)
 
 # save dataset with proper timestamps for the Twitter API
 # write.csv(multiple_treatment,"C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Data\\main_df\\multiple_treatment.csv", row.names = FALSE)
 # In numbers I manually add show_id unique for each show. The show where the first journalist is treated will be show 1
-write.csv(single_treatment,"", row.names = FALSE)
+write.csv(single_treatment,"C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Data\\main_df\\treatment_group\\lexisnexis_treatment.csv", row.names = FALSE)
 
 
 ####################################################################################################################################
@@ -87,7 +87,7 @@ write.csv(single_treatment,"", row.names = FALSE)
 
 # use not yet treated journalists as the control group. Write code that results 140 data.frames each consisting of not yet treated 
 # journalists that will be used to build the search query for the control group
-single_control <- read_csv("")
+single_control <- read_csv("C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Data\\journalists\\full_names.csv")
 
 # order data.frame after data with the first show/treatment at the top 
 control_matrix <- single_control[order(single_control$start_date),]
@@ -164,7 +164,7 @@ k <- plyr::ldply(list_list, rbind)
 l = t(k) # reverse dataframe so each column represent a journalist and rows dates
 
 # save data.frame my_list_df
-write.csv(l,"", row.names = FALSE)
+write.csv(l,"C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Data\\main_df\\control_group\\control_group_df.csv", row.names = FALSE)
 
 
 
@@ -176,7 +176,7 @@ write.csv(l,"", row.names = FALSE)
 # description: "URL" contains URL to transcript, "Dato" is the date of the show, "Tekst" is the transcript, "names" is the full
 # "names" of the journalist called out by Tucker Carlson, "twitter_handle", "gender", "show" is a id of the specific show, and
 # "id" is row specific
-full_names_10 <- read_csv("")
+full_names_10 <- read_csv("C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Data\\journalists\\full_names_10.csv")
 
 # remove any duplicate twitter_handles (Max Boot)
 full_names_10 <- distinct(full_names_10, twitter_handle, .keep_all = TRUE)
@@ -221,12 +221,12 @@ itemizeDates <- function(startDate="12-30-11", endDate="1-4-12",
 single_time_int_treat_10 <- as.data.frame(mapply(itemizeDates, single_start_date_treat_10, single_end_date_treat_10))
 
 # save dataset with time_inteval for the Twitter API
-write.csv(single_time_int_treat_10,"", row.names = FALSE)
+write.csv(single_time_int_treat_10,"C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Data\\main_df\\single_time_int_treat_10.csv", row.names = FALSE)
 
 # save dataset with proper timestamps for the Twitter API
 # write.csv(multiple_treatment,"C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Data\\main_df\\multiple_treatment.csv", row.names = FALSE)
 # In numbers I manually add show_id unique for each show. The show where the first journalist is treated will be show 1
-write.csv(single_treatment_10,"", row.names = FALSE)
+write.csv(single_treatment_10,"C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Data\\main_df\\treatment_group\\lexisnexis_treatment_10.csv", row.names = FALSE)
 
 
 ####################################################################################################################################
@@ -235,7 +235,7 @@ write.csv(single_treatment_10,"", row.names = FALSE)
 
 # use not yet treated journalists as the control group. Write code that results 140 data.frames each consisting of not yet treated 
 # journalists that will be used to build the search query for the control group
-single_control_10 <- read_csv("")
+single_control_10 <- read_csv("C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Data\\journalists\\full_names_10.csv")
 
 # order data.frame after data with the first show/treatment at the top 
 control_matrix_10 <- single_control_10[order(single_control_10$start_date),]
@@ -291,7 +291,7 @@ c_10 <- plyr::ldply(list_list_10, rbind)
 l_10 = t(c_10) # reverse data frame so each column represent a journalist and rows dates
 
 # save data.frame my_list_df
-write.csv(l_10,"", row.names = FALSE)
+write.csv(l_10,"C:\\Users\\Marco Liedecke\\Desktop\\Twitter_Tone\\Data\\main_df\\control_group\\control_group_df_10.csv", row.names = FALSE)
 
 
 
