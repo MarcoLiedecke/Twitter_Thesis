@@ -80,7 +80,7 @@ names_df.to_csv(r"C:\Users\Marco Liedecke\Desktop\Twitter_Tone\Data\journalists\
 
 # twitter token
 os.environ[
-    'TOKEN'] = 'AAAAAAAAAAAAAAAAAAAAAGJhWQEAAAAADQ%2FsYYeFiu%2FxwFZu5KkitGwJOPY%3D0U33tTGAyLNNfEtawDOiPYzHACej4IGndYk0niWMrF6in8hpSA'
+    'TOKEN'] = 'token'
 
 
 def auth():
